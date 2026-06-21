@@ -26,7 +26,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
 
   const fetchTasks = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/tasks?search=${search}&status=${statusFilter}&page=${page}&limit=5`, {
+      const res = await fetch(`/api/tasks?search=${search}&status=${statusFilter}&page=${page}&limit=5`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -41,7 +41,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/categories', {
+      const res = await fetch('/api/categories', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -58,7 +58,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
     e.preventDefault();
     if (!catForm.title) return;
     try {
-      const res = await fetch('http://localhost:5000/api/categories', {
+      const res = await fetch('/api/categories', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(catForm)
@@ -78,7 +78,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
     e.preventDefault();
     if (!taskForm.title || !taskForm.category) return;
     try {
-      const res = await fetch('http://localhost:5000/api/tasks', {
+      const res = await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(taskForm)
@@ -95,7 +95,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
   const handleToggleStatus = async (id, currentStatus) => {
     const nextStatus = currentStatus === 'pending' ? 'completed' : 'pending';
     try {
-      const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
+      const res = await fetch(`/api/tasks/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ status: nextStatus })
@@ -108,7 +108,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
 
   const handleDeleteTask = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
+      const res = await fetch(`/api/tasks/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
