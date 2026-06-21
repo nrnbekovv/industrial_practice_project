@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-*: initial;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html, body {
+    @apply transition-colors duration-200;
+  }
+}
+
+input::placeholder, textarea::placeholder {
+  @apply text-gray-400 transition-colors duration-200;
+}
+
+.dark input::placeholder, .dark textarea::placeholder {
+  @apply text-gray-500;
+}
