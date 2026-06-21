@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { Trash2, CheckCircle, Circle, Plus, ChevronLeft, ChevronRight, Search, Filter } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Dashboard = ({ darkMode, setDarkMode }) => {
   const [tasks, setTasks] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -26,7 +28,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
 
   const fetchTasks = async () => {
     try {
-      const res = await fetch(`/api/tasks?search=${search}&status=${statusFilter}&page=${page}&limit=5`, {
+      const res = await fetch(`${API_URL}/api/tasks?search=${search}&status=${statusFilter}&page=${page}&limit=5`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -41,7 +43,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch('/api/categories', {
+      const res = await fetch(`${API_URL}/api/categories`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -58,7 +60,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
     e.preventDefault();
     if (!catForm.title) return;
     try {
-      const res = await fetch('/api/categories', {
+      const res = await fetch(`${API_URL}/api/categories`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(catForm)
@@ -78,7 +80,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
     e.preventDefault();
     if (!taskForm.title || !taskForm.category) return;
     try {
-      const res = await fetch('/api/tasks', {
+      const res = await fetch(`${API_URL}/api/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(taskForm)
@@ -95,7 +97,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
   const handleToggleStatus = async (id, currentStatus) => {
     const nextStatus = currentStatus === 'pending' ? 'completed' : 'pending';
     try {
-      const res = await fetch(`/api/tasks/${id}`, {
+      const res = await fetch(`${API_URL}/api/tasks/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ status: nextStatus })
@@ -108,7 +110,7 @@ const Dashboard = ({ darkMode, setDarkMode }) => {
 
   const handleDeleteTask = async (id) => {
     try {
-      const res = await fetch(`/api/tasks/${id}`, {
+      const res = await fetch(`${API_URL}/api/tasks/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
