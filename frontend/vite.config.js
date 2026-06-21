@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'industrialpracticeproject-production.up.railway.app',
+        target: 'https://industrialpracticeproject-production.up.railway.app', 
         changeOrigin: true,
         secure: false,
       }
